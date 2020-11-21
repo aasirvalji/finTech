@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 const Entry = require("../../models/Entry");
 const { query } = require("express");
 
@@ -11,34 +12,33 @@ const { query } = require("express");
 // Create an entry
 router.post(
   "/",
+  auth,
   async (req, res) => {
     try {
-      // const {actions} = (await Action.find())[0];
-      // console.log(req.body)
-      // var queryActions = [];
-      // var totalScore = 0;
+      console.log('reached')
+      const splitQuery = req.body.query.split(' a ');
+      var profile = await Profile.find({ user: req.user.id });
+      var transactions = [];
 
-      // for (var i = 0; i < actions.length; i++){
-      //   var splitActions = actions[i].split(":");
-      //   for (var j = 0; j < splitActions.length - 1; j++){
-      //     var querySplit = req.body.query.split(' ');
-      //     for (var k = 0; k < querySplit.length; k++){
-      //       if (querySplit[k] === splitActions[j]){
-      //         queryActions.push({ text: querySplit[k], score: parseFloat(splitActions[splitActions.length - 1])});
-      //         totalScore += parseFloat(splitActions[splitActions.length - 1])
-      //       }
-      //     }
-      //   }
-      // }
+      console.log(splitQuery)
 
+      for (q of splitQuery){
+        console.log(q)
+        if (q.includes(' for $')){
+          var split = q.split(' for $');
+          transactions.push({ item: split[0], cost: split[1]});
+        }
+      }
 
-      // const newEntry = {
-      //   user: req.user.id,
-      //   date: req.body.date,
-      //   query: req.body.query,
-      //   actions: queryActions,
-      //   totalScore: totalScore
-      // }
+      console.log(transactions);
+
+      const newEntry = {
+        user: req.user.id,
+        date: req.body.date,
+        query: req.body.query,
+        actions: queryActions,
+        totalScore: totalScore
+      }
 
       console.log(req.body);
 

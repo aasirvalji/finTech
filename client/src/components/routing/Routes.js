@@ -8,6 +8,7 @@ import Alert from '../layout/alert'
 import Entries from '../layout/entries'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
+import Profile from '../layout/profile'
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
         <PrivateRoute exact path="/compare" component={Layout} />
         <PrivateRoute exact path="/create-log" component={Dashboard} />
         <PrivateRoute exact path='/dashboard' component={Entries}/>
+        <PrivateRoute exact path='/profile' component={Profile}/>
       </Switch>
     </section>
   );

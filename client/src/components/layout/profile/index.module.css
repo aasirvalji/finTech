@@ -1,0 +1,31 @@
+.profile-form {
+  display: none;
+  width: 24rem;
+  /* height: 24rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  padding: 1rem;
+}
+
+.profile-headers h1 {
+  margin-bottom: 1rem;
+}
+
+.profile-form > div {
+  padding: 0.3rem;
+}
+
+#profile-button {
+  padding: 0.3rem;
+  margin-bottom: 1rem;
+  background-color: #000000;
+  color: white;
+}
+
+.my-1 {
+  margin-bottom: 2rem;
+}

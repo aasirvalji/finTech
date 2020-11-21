@@ -34,15 +34,12 @@ const Dashboard = ({
             switch (command){
                 case 'today': 
                 let today = (new Date(Date.now()).toLocaleString().split(','))[0];
-                console.log(today)
                 setQuery(userInput);
-                keyWordsUILoading(userInput)
                 setDate(today);
+                // alanBtn().playText("Hi! I am Alan");
                 break;
                 case 'past': 
-                var pastRaw = (userInput.split('I')[0]).trim();
                 setQuery((userInput.split('I')[1]).trim());
-                keyWordsUILoading(userInput)
                 setDate(converToDate((userInput.split('I')[0]).trim()));
                 break;
                 default: 
@@ -78,24 +75,6 @@ const converToDate = d => {
 
     day = day.replace(/\D/g,'');
     return `${day}/${month}/${year}`
-}
-
-const keyWordsUILoading = d => {
-    if (!d) return;
-    const UIwords = ['shower', 'bath', 'groceries', 'grocery', 'fruit', 'vegetables', 'soda', 'house', 'fly', 'drive', 'watched'];
-    const userInputSplit = d.split(' ');
-    var res = [];
-
-    for (var i = 0; i < UIwords.length; i++){
-        for (var j = 0; j < userInputSplit.length; j++){
-            if (userInputSplit[j] === UIwords[i]){
-                var prefix = Math.random() < 0.5 ? 'I heard you mention' : 'Did I hear something about'
-                res.push(`${prefix} ${userInputSplit[j]}`)
-            }
-        }
-    }
-    if (res.length === 0) res.push('Processing input...')
-    setMentions(res);
 }
 
     return (

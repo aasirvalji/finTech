@@ -7,6 +7,24 @@ const Profile = require("../../models/Profile");
 const path = require('path')
 const auth = require("../../middleware/auth");
 
+// get logged in user profile
+router.get("/", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id, //find profile by user id
+    });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // Create profile
 router.post('/', auth, async (req, res, next) => {
     let profile = await Profile.findById(req.params.id)
@@ -15,7 +33,7 @@ router.post('/', auth, async (req, res, next) => {
   
     profile = await Profile.create(req.body);
   
-    return res.status(200).json({ success: true, data: user });
+    return res.status(200).json({ success: true, data: profile });
   });
 
 
