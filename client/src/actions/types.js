@@ -30,3 +30,7 @@ export const GET_ENTRIES = "GET_ENTRIES";
 export const ENTRY_ERROR = "ENTRY_ERROR";
 
 
+export const SET_DATE = "SET_DATE";
+export const SET_QUERY= "SET_QUERY";
+
+

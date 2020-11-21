@@ -19,12 +19,19 @@ const alanKey = 'a36736f23b21bfd709dcc410696ad0a52e956eca572e1d8b807a3e2338fdd0d
 const Dashboard = ({
     addEntry,
     getEntry,
+    qq, 
+    dd,
     auth: { user },
 }) => {
 
-    const [query, setQuery] = useState('');
-    const [date, setDate] = useState('');
+    const [query, setQuery] = useState(qq);
+    const [date, setDate] = useState(dd);
     const [mentions, setMentions] = useState([]);
+
+    useEffect(() => {
+        setQuery(qq);
+        setDate(dd);
+      }, [qq, dd]);
 
 //   useEffect(() => {
 //    if (window.location.href.split(':3000')[1] === '/create-log'){
@@ -58,40 +65,43 @@ const submit = () => {
         query: query,
     })
     console.log(user, date, query)
+    setQuery(undefined);
+    setDate(undefined)
 }
 
-const converToDate = d => {
-    var splitDate = d.split(' ');
-    var month = splitDate[0];
-    console.log(month)
-    var day = splitDate[1];
-    var year = splitDate[2];
+// const converToDate = d => {
+//     var splitDate = d.split(' ');
+//     var month = splitDate[0];
+//     console.log(month)
+//     var day = splitDate[1];
+//     var year = splitDate[2];
 
-    // get month
-    var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-    for (var i = 0; i < months.length; i++) {
-    if (month.toLowerCase().includes(months[i])){
-        month = (i + 1).toString();
-    }
-}
+//     // get month
+//     var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+//     for (var i = 0; i < months.length; i++) {
+//     if (month.toLowerCase().includes(months[i])){
+//         month = (i + 1).toString();
+//     }
+// }
 
-    day = day.replace(/\D/g,'');
-    return `${day}/${month}/${year}`
-}
+//     day = day.replace(/\D/g,'');
+//     return `${day}/${month}/${year}`
+// }
 
     return (
         <>
+
         <div className='dashboard-container'>
            <Paper elevation={3} className='dashboard-left'>
            <div className='instructions'>
            <h1>Example queries<i class="fas fa-question-circle"></i></h1>
             <p>Tell us what you did today</p>
            </div>
-<div>
-<div className='example-queries'>
-<p>A couple example statements to help get you started</p>
-</div>
-</div>
+            <div>
+            <div className='example-queries'>
+                <p>A couple example statements to help get you started</p>
+        </div>
+        </div>
            </Paper>
            <Paper elevation={3} className='dashboard-right'>
            <h1>Voice queue</h1>
@@ -107,19 +117,20 @@ const converToDate = d => {
 
            </Paper>
         </div>
+
         {query &&
+        <>
+        <h1>
+           {query}
+        </h1>
+
             <div className='confirm-container'>
         <Button variant="contained" onClick={() => submit()} style={{backgroundColor: '#2ECC40', color: 'white'}}>
-  Confirm
-</Button>
+        Confirm
+        </Button>
         </div>
-
+        </>
         }
-
-        <div className='dash-image-container'>
-        <img src='https://image.freepik.com/free-vector/business-people-finance-bank-illustration-financial-analytic-growth-graphic-office-banking-concept-money-man-background-design_109722-1065.jpg'/>
-        </div>
-
         </>
     )
 }

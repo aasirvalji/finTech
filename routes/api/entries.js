@@ -16,35 +16,31 @@ router.post(
   async (req, res) => {
     try {
       console.log('reached')
-      const splitQuery = req.body.query.split(' a ');
-      var profile = await Profile.find({ user: req.user.id });
-      var transactions = [];
 
-      console.log(splitQuery)
+      // Today, i bought a - , a -, a-, ...
+      // On x, i bought a - , a -, a-, ...
+      const splitQuery = req.body.query.split(' a ');
+      var profile = await Profile.findOne({ user: req.user.id });
+      var transactions = profile.transactions;
+      var items = [];
+      var total = 0;
 
       for (q of splitQuery){
-        console.log(q)
         if (q.includes(' for $')){
           var split = q.split(' for $');
-          transactions.push({ item: split[0], cost: split[1]});
+          total += parseFloat(split[1])
+          items.push({ name: split[0], amount: split[1].split(' ')[0]});
         }
       }
 
-      console.log(transactions);
+      console.log(total, items);
 
-      const newEntry = {
-        user: req.user.id,
-        date: req.body.date,
-        query: req.body.query,
-        actions: queryActions,
-        totalScore: totalScore
-      }
+      transactions.push({ total, items })
+      profile.transactions = transactions;
 
-      console.log(req.body);
+      const updatedProfile = await profile.save();
 
-      // const entry = await newEntry.save();
-
-      // res.json(entry);
+      res.json(updatedProfile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

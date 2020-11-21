@@ -27,7 +27,7 @@ const ProfileSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: [true, 'Please add an address'],
+    required: false
   },
   location: {
     // GeoJSON Point

@@ -10,16 +10,23 @@ import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
 import Profile from '../layout/profile'
 
-const Routes = () => {
+const Routes = ({ query, date}) => {
   return (
     <section>
+      { console.log(query, date)}
      <Alert />
       <Switch>
       <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/upload" component={Upload} />
         <PrivateRoute exact path="/compare" component={Layout} />
-        <PrivateRoute exact path="/create-log" component={Dashboard} />
+        
+        <Route exact path="/create-log"
+        render={(props) => (
+          <Dashboard {...props} qq={query} dd={date}/>
+        )}
+        />
+
         <PrivateRoute exact path='/dashboard' component={Entries}/>
         <PrivateRoute exact path='/profile' component={Profile}/>
       </Switch>

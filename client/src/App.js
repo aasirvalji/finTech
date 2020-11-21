@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Routes from "./components/routing/Routes";
 import Landing from "./components/layout/landing";
@@ -23,6 +23,9 @@ const App = () => {
     store.dispatch(loadUser());
   }, []);
 
+  const [query, setQuery] = useState('');
+  const [date, setDate] = useState('');
+
   useEffect(() => {
     // if (window.location.href.split(':3000')[1] === '/create-log'){
      alanBtn({
@@ -30,23 +33,42 @@ const App = () => {
          onCommand: ({ command, userInput }) => {
              console.log(command, userInput)
              switch (command){
-                //  case 'today': 
-                //  let today = (new Date(Date.now()).toLocaleString().split(','))[0];
-                //  setQuery(userInput);
-                //  setDate(today);
-                //  // alanBtn().playText("Hi! I am Alan");
-                //  break;
-                //  case 'past': 
-                //  setQuery((userInput.split('I')[1]).trim());
-                //  setDate(converToDate((userInput.split('I')[0]).trim()));
-                //  break;
-                //  default: 
-                //  break;
+                 case 'today': 
+                 let today = (new Date(Date.now()).toLocaleString().split(','))[0];
+                 setQuery(userInput);
+                 setDate(today);
+                 // alanBtn().playText("Hi! I am Alan");
+                 break;
+                 case 'past': 
+                 setQuery((userInput.split('I')[1]).trim());
+                 setDate(converToDate((userInput.split('I')[0]).trim()));
+                 break;
+                 default: 
+                 break;
              }
          }
      })
 //  }
  }, []);
+
+const converToDate = d => {
+  var splitDate = d.split(' ');
+  var month = splitDate[0];
+  console.log(month)
+  var day = splitDate[1];
+  var year = splitDate[2];
+
+  // get month
+  var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+  for (var i = 0; i < months.length; i++) {
+  if (month.toLowerCase().includes(months[i])){
+      month = (i + 1).toString();
+  }
+}
+
+  day = day.replace(/\D/g,'');
+  return `${day}/${month}/${year}`
+}
 
   return (
     <Provider store={store}>
@@ -55,7 +77,12 @@ const App = () => {
           <Navbar />
           <Switch>
           <Route exact path="/" component={Landing} />
-            <Route component={Routes} />
+          { console.log(query, date)}
+            <Route  
+            render={(props) => (
+              <Routes {...props} query={query} date={date}/>
+            )}
+            />
           </Switch>
         </Fragment>
       </Router>
