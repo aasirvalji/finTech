@@ -5,6 +5,7 @@ import { getCurrentProfile, createProfile } from "../../../actions/profile";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Chart from '../charts/main'
 
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -81,7 +82,7 @@ return (
     </div>
     
     : 
-  <p>you have a profile</p>
+<Chart/>
 }
 
   </>

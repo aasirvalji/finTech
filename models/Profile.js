@@ -68,6 +68,10 @@ const ProfileSchema = new mongoose.Schema({
         },
       }
       ],
+      formattedDate: {
+        type: String,
+        required: false,
+      },
       createdAt: {
         type: Date,
         default: Date.now,

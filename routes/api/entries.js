@@ -6,7 +6,17 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const Entry = require("../../models/Entry");
+
 const { query } = require("express");
+const dotenv = require('dotenv');
+const language = require('@google-cloud/language');
+const path = require('path');
+
+// Creates a client
+const client = new language.LanguageServiceClient();
+
+// Load env vars
+dotenv.config({ path: path.resolve(__dirname, '../.env')  });
 
 // POST api/entries
 // Create an entry
@@ -14,9 +24,41 @@ router.post(
   "/",
   auth,
   async (req, res) => {
-    try {
-      console.log('reached')
+    console.log(req.body)
+    var languageProcessed = false
+    var categoryName;
+    var categoryConfidence;
 
+    try {
+      // Run language processing on input 
+      // ----------------------------------------
+      // Prepares a document, representing the provided text
+
+      try{
+        const document = {
+          content: req.body.query,
+          type: 'PLAIN_TEXT',
+          };
+          
+          // Classifies text in the document
+          const [classification] = await client.classifyText({document});
+          console.log('Categories:');
+          classification.categories.forEach(category => {
+          console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
+          categoryName = category.name;
+          categoryConfidence = category.confidence;
+          })
+
+          languageProcessed = true;
+      }
+      catch (err){
+        console.log(err)
+      }
+
+          // ----------------------------------------
+
+
+      // Format data for database
       // Today, i bought a - , a -, a-, ...
       // On x, i bought a - , a -, a-, ...
       const splitQuery = req.body.query.split(' a ');
@@ -35,7 +77,9 @@ router.post(
 
       console.log(total, items);
 
-      transactions.push({ total, items })
+      if (languageProcessed) transactions.push({  formattedDate: req.body.date, category: categoryName.split('/')[1], total, items })
+      else transactions.push({  formattedDate: req.body.date, category: '', total, items })
+
       profile.transactions = transactions;
 
       const updatedProfile = await profile.save();

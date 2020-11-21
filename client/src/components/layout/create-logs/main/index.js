@@ -92,26 +92,24 @@ const submit = () => {
         <>
 
         <div className='dashboard-container'>
-           <Paper elevation={3} className='dashboard-left'>
-           <div className='instructions'>
-           <h1>Example queries<i class="fas fa-question-circle"></i></h1>
-            <p>Tell us what you did today</p>
-           </div>
-            <div>
-            <div className='example-queries'>
-                <p>A couple example statements to help get you started</p>
-        </div>
-        </div>
-           </Paper>
            <Paper elevation={3} className='dashboard-right'>
            <h1>Voice queue</h1>
            
-        {mentions.length === 0 && query &&  <p>Input recieved</p>}
-        {mentions.length === 0 && !query && <p>Voice something to get started</p>}
+        {mentions.length === 0 && !query && 
+        <div className='voice-instructions-container'>
+            <p>Today i bought &lt;items&gt; for &lt;price&gt;, a &lt;items&gt; for &lt;price&gt;, ...</p>
+            <p>On December 14th 2001, i bought &lt;items&gt; for &lt;price&gt;, a &lt;items&gt; for &lt;price&gt;, ...</p>
+        </div>
+
+            }
         
-        <List component="nav" aria-label="secondary mailbox folders">
+        <List component="nav" class='voice-recieved' aria-label="secondary mailbox folders">
         {mentions && query && 
-        <p>Your input has been recieved! Press Confirm to submit your recording</p>
+        <div>
+            <p>Your input has been recieved: </p> 
+             <p> {query} </p>
+             <p>Press Confirm to submit your recording</p>
+            </div>
         }
         </List>
 
@@ -119,14 +117,10 @@ const submit = () => {
         </div>
 
         {query &&
-        <>
-        <h1>
-           {query}
-        </h1>
-
-            <div className='confirm-container'>
-        <Button variant="contained" onClick={() => submit()} style={{backgroundColor: '#2ECC40', color: 'white'}}>
-        Confirm
+            <>
+        <div className='confirm-container'>
+        <Button variant="contained" onClick={() => submit()} style={{backgroundColor: '#000000', color: 'white'}}>
+            Confirm
         </Button>
         </div>
         </>

@@ -75,32 +75,6 @@ const returnData = {
 
 });
 
-router.post('/parse', async (req, res) => {
-
-        const text = `KS# 13
-        HFY SIDE 1 KVS Order 55
-        QTY ITEM TOTAL
-        1 bread 6.79
-        1 gas
-        1 Car repair 1P 0,00
-        1 3 Windshield wipers 1.19
-        Take~0ut Total 8.46
-        Cash Tandered 8.46
-        Change 0.00`;
-
-// Prepares a document, representing the provided text
-const document = {
-  content: text,
-  type: 'PLAIN_TEXT',
-};
-
-// Classifies text in the document
-const [classification] = await client.classifyText({document});
-console.log('Categories:');
-classification.categories.forEach(category => {
-  console.log(`Name: ${category.name}, Confidence: ${category.confidence}`);
-})});
-
 // https://${S3_BUCKET}.s3.amazonaws.com/
 
 

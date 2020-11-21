@@ -27,19 +27,20 @@ const App = () => {
   const [date, setDate] = useState('');
 
   useEffect(() => {
-    // if (window.location.href.split(':3000')[1] === '/create-log'){
      alanBtn({
          key: alanKey,
          onCommand: ({ command, userInput }) => {
              console.log(command, userInput)
              switch (command){
                  case 'today': 
-                 let today = (new Date(Date.now()).toLocaleString().split(','))[0];
+                  if (window.location.href.split(':3000')[1] !== '/create-log') alanBtn().playText("Please navigate to the create log page first");
+                 let today = dateMonthSwap((new Date(Date.now()).toLocaleString().split(','))[0]);
                  setQuery(userInput);
                  setDate(today);
                  // alanBtn().playText("Hi! I am Alan");
                  break;
                  case 'past': 
+                  if (window.location.href.split(':3000')[1] !== '/create-log') alanBtn().playText("Please navigate to the create log page first");
                  setQuery((userInput.split('I')[1]).trim());
                  setDate(converToDate((userInput.split('I')[0]).trim()));
                  break;
@@ -48,7 +49,6 @@ const App = () => {
              }
          }
      })
-//  }
  }, []);
 
 const converToDate = d => {
@@ -68,6 +68,11 @@ const converToDate = d => {
 
   day = day.replace(/\D/g,'');
   return `${day}/${month}/${year}`
+}
+
+const dateMonthSwap = d => {
+  var splitData = d.split('/');
+  return `${splitData[1]}/${splitData[0]}/${splitData[2]}`
 }
 
   return (
@@ -90,4 +95,4 @@ const converToDate = d => {
   );
 };
 
-export default App;
+export default (App);

@@ -47,3 +47,13 @@
 .dash-image-container > img {
   width: 25%;
 }
+
+.voice-instructions-container p,
+.voice-recieved p {
+  width: 90%;
+  margin: auto;
+  padding: 1rem 0rem;
+}
+
+.voice-recieved p {
+}
