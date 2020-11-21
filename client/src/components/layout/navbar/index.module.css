@@ -1,0 +1,61 @@
+*:focus {
+  outline: 0 !important;
+}
+
+#navContainer {
+  width: 100%;
+  border-radius: 1px;
+  margin: auto;
+  margin-bottom: 5rem;
+  background-color: #000000;
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 12px 10px rgba(0, 0, 0, 0.22);
+}
+
+#navContainer img {
+  width: 40px;
+}
+
+#toolbar {
+  display: grid;
+  width: 90%;
+  margin: auto;
+  grid-template-columns: 50% 50%;
+}
+
+#headerRight {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+ul li {
+  font-size: 0.8rem;
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+#navOptions {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 600px) {
+  #nav {
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* removed navbar on supported device(s) */
+@media only screen and (max-width: 280px) {
+  #nav {
+    display: none;
+  }
+}

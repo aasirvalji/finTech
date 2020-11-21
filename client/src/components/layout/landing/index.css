@@ -1,0 +1,66 @@
+.landing-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 67%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+/* Landing */
+.showcase {
+  height: 400px;
+  background-color: var(--primary-color);
+  color: #fff;
+  position: relative;
+  transform: translateY(80px);
+}
+
+.showcase h1 {
+  font-size: 40px;
+}
+
+.showcase p {
+  margin: 20px 0;
+}
+
+.showcase .grid {
+  /* makes overflow content inside div visible outsid eof the grid */
+  overflow: visible;
+  grid-template-columns: 55% auto;
+  gap: 30px;
+}
+
+.showcase-form {
+  margin: auto;
+  position: relative;
+  top: 60px;
+  height: 350px;
+  width: 400px;
+  padding: 40px;
+  z-index: 100;
+  transform: translateY(-5rem);
+  justify-self: flex-end;
+  animation: slideInFromRight 1s ease-in;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* slanted effect on landing background */
+.showcase::before,
+.showcase::after {
+  content: "";
+  position: absolute;
+  height: 100px;
+
+  /* go under the showcase container by 70 pixels */
+  bottom: -70px;
+  right: 0;
+  left: 0;
+  background: #fff;
+  transform: skewY(-3deg);
+  -webkit-transform: skewY(-3deg);
+  -moz-transform: skewY(-3deg);
+  -ms-transform: skewY(-3deg);
+}

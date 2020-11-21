@@ -1,0 +1,9 @@
+.news-layout-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  /* bring your own prefixes */
+}

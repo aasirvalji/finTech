@@ -1,0 +1,39 @@
+{
+  "name": "enactus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "client": "npm start --prefix client",
+    "server": "nodemon server",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/language": "^4.2.1",
+    "aws-sdk": "^2.794.0",
+    "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "express-mongo-sanitize": "^2.0.0",
+    "express-validator": "^6.6.1",
+    "helmet": "^4.1.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.10",
+    "node-geocoder": "^3.27.0",
+    "tesseract.js": "^2.1.4",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
