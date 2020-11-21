@@ -48,14 +48,26 @@ const ProfileSchema = new mongoose.Schema({
   },
   transactions: [
     {
-      name: {
+      category: {
         type: String,
         required: false,
       },
-      amount: {
+      total: {
         type: Number,
         required: false,
       },
+      items: [
+        {
+        name: {
+          type: String,
+          required: false,
+        },
+        amount: {
+          type: Number,
+          required: false,
+        },
+      }
+      ],
       createdAt: {
         type: Date,
         default: Date.now,

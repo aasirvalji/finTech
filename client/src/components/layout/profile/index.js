@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getCurrentProfile, createProfile } from "../../../actions/profile";
 
@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper'
 
 const Profile = ({
   getCurrentProfile,
+  createProfile,
+  history,
   profile: { profile, loading },
   auth,
   match,
@@ -21,18 +23,21 @@ const Profile = ({
   }, [getCurrentProfile]);
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    age: "0",
+    gender: "",
+    student: "",
+    salary: "0",
+    address: ""
   });
 
-  const { email, password } = formData;
+  const { age, gender, student, salary, address } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    createProfile(email, password);
+    createProfile(formData, history);
   };
 
 
@@ -43,25 +48,51 @@ const Profile = ({
         <form className="profile-form" onSubmit={(e) => onSubmit(e)}>
         <div className="profile-form-group">
           <TextField
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
+            type="text"
+            placeholder="Enter age"
+            name="age"
+            value={age}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
         <div className="profile-form-group">
           <TextField
-            type="password"
-            placeholder="Password"
-            name="password"
-            minLength="4"
-            value={password}
+            type="text"
+            placeholder="Enter gender"
+            name="gender"
+            value={gender}
             onChange={(e) => onChange(e)}
           />
         </div>
-        <Button type="submit" className="btn btn-primary" value="Login" id='profile-form-button'>Enter</Button>
+        <div className="profile-form-group">
+          <TextField
+            type='text'
+            placeholder="Student ?"
+            name="student"
+            value={student}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="profile-form-group">
+          <TextField
+            type='text'
+            placeholder="Enter salary"
+            name="salary"
+            value={salary}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="profile-form-group">
+          <TextField
+            type='text'
+            placeholder="Enter Address"
+            name="address"
+            value={address}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <Button type="submit" className="btn btn-primary" value="Create Profile" id='profile-form-button'>Enter</Button>
       </form>
       </>}
     </>
@@ -80,4 +111,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth, //if user viewing profile has the same id as the profile being viewed, they should be able to edit
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, createProfile })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile, createProfile })(withRouter(Profile));

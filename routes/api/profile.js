@@ -25,12 +25,20 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// Create profile
+// Create new profile
 router.post('/', auth, async (req, res, next) => {
-    let profile = await Profile.findById(req.params.id)
+    let profile = await Profile.findOne({ user: req.user.id})
 
     if (profile) return res.status(400).json({ message: 'Profile already exists'});
-  
+
+    var body = req.body;
+    body.user = req.user.id;
+    body.age = parseInt(body.age);
+    body.gender = body.gender.toUpperCase();
+    body.student = body.student.toUpperCase() === 'Y' ? true : false;
+    body.salary = parseInt(body.salary);
+    // body.address = body.address
+
     profile = await Profile.create(req.body);
   
     return res.status(200).json({ success: true, data: profile });

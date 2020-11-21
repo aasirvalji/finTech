@@ -26,28 +26,30 @@ const Dashboard = ({
     const [date, setDate] = useState('');
     const [mentions, setMentions] = useState([]);
 
-  useEffect(() => {
-    alanBtn({
-        key: alanKey,
-        onCommand: ({ command, userInput }) => {
-            console.log(command, userInput)
-            switch (command){
-                case 'today': 
-                let today = (new Date(Date.now()).toLocaleString().split(','))[0];
-                setQuery(userInput);
-                setDate(today);
-                // alanBtn().playText("Hi! I am Alan");
-                break;
-                case 'past': 
-                setQuery((userInput.split('I')[1]).trim());
-                setDate(converToDate((userInput.split('I')[0]).trim()));
-                break;
-                default: 
-                break;
-            }
-        }
-    })
-}, []);
+//   useEffect(() => {
+//    if (window.location.href.split(':3000')[1] === '/create-log'){
+//     alanBtn({
+//         key: alanKey,
+//         onCommand: ({ command, userInput }) => {
+//             console.log(command, userInput)
+//             switch (command){
+//                 case 'today': 
+//                 let today = (new Date(Date.now()).toLocaleString().split(','))[0];
+//                 setQuery(userInput);
+//                 setDate(today);
+//                 // alanBtn().playText("Hi! I am Alan");
+//                 break;
+//                 case 'past': 
+//                 setQuery((userInput.split('I')[1]).trim());
+//                 setDate(converToDate((userInput.split('I')[0]).trim()));
+//                 break;
+//                 default: 
+//                 break;
+//             }
+//         }
+//     })
+// }
+// }, []);
 
 const submit = () => {
     addEntry({
