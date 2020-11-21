@@ -9,6 +9,7 @@ import Entries from '../layout/entries'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
 import Profile from '../layout/profile'
+import Camera from "../cam";
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
         <PrivateRoute exact path="/create-log" component={Dashboard} />
         <PrivateRoute exact path='/dashboard' component={Entries}/>
         <PrivateRoute exact path='/profile' component={Profile}/>
+        <Route exact path="/cam" component={Camera} />
       </Switch>
     </section>
   );
