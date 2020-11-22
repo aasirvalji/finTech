@@ -1,0 +1,11 @@
+.helper-upload-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#helper-upload-button {
+  background-color: black;
+  margin-bottom: 3rem;
+  color: white;
+}

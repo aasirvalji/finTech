@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './helper.css'
+import Button from '@material-ui/core/Button';
 
 const bucketRoot = 'https://my-aws-bucket-90091.s3.amazonaws.com/'
 
@@ -13,6 +15,15 @@ class HelperUpload extends Component {
       picFile: undefined
     }
   }
+
+  // componentDidUpdate(nextProps) {
+  //   const { show } = this.props
+  //   if (nextProps.show !== show) {
+  //    if (show) {
+  //     getMoreData().then(resp => this.setState({ data: resp.data }))
+  //    }
+  //   }
+  //  }
   
   handleChange = (ev) => {
     this.setState({success: false, url : ""});
@@ -67,16 +78,15 @@ class HelperUpload extends Component {
                console.log(response.data.text)
               })      
           .catch(error => {
-            alert("ERROR " + JSON.stringify(error));
+            console.log(error);
           })
-
       })
       .catch(error => {
-        alert("ERROR " + JSON.stringify(error));
+        console.log(error);
       })
     })
     .catch(error => {
-      alert(JSON.stringify(error));
+      console.log(error);
     })
   }
 
@@ -89,36 +99,21 @@ class HelperUpload extends Component {
   
   render() {
     return (
-      <div className="App">
+      <div className="helper-upload-container">
           { console.log( this.state.picFile )}
           { this.props.picFile && <p>file exists</p> }
-        <hr></hr>
-        <button onClick={this.handleUpload}>Submit file</button> 
-        {this.state.success ? 
-          
+
+    {this.props.picFile !== undefined &&  
+    <Button onClick={this.handleUpload} id='helper-upload-button'>Submit file</Button>}
+
+        {this.state.success &&
           <div style={{padding:50}}>
           <h3 style={{color: 'green'}}>SUCCESSFUL UPLOAD</h3>
           <a href={this.state.url}>Access the file here</a>
           <br/>
         </div>
-          
-          : null}
-        {/* <center>
-          <h1>UPLOAD A FILE</h1>
-          {this.state.success ? 
-          
-          <div style={{padding:50}}>
-          <h3 style={{color: 'green'}}>SUCCESSFUL UPLOAD</h3>
-          <a href={this.state.url}>Access the file here</a>
-          <br/>
-        </div>
-          
-          : null}
-          <input onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }} type="file"/>
-          <br/>
-          <button onClick={this.handleUpload}>UPLOAD</button>
-        </center> */}
-      </div>
+          }
+                </div>
     );
   }
 }
