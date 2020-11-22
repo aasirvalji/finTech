@@ -14,7 +14,7 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 
-const Dashboard = ({ getCurrentProfile,  profile: { profile, loading },}) => {
+const Dashboard = ({ getCurrentProfile,  profile: { profile, loading }, auth: {user}}) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
@@ -82,7 +82,7 @@ return (
     
     // : 
    <>
-    {console.log(profile)}
+    <h1 className='dashboard-header'>Hello {user && user.name}</h1>
 <Chart transactions={profile.transactions}/>
 </>
 }

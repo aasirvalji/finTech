@@ -3,9 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import Register from "../auth/register";
 import Login from "../auth/login";
 import PrivateRoute from './PrivateRoute';
-import Dashboard from '../layout/create-logs/main'
+import Dashboard from '../layout/cards'
 import Alert from '../layout/alert'
-import Entries from '../layout/entries'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
 // import Profile from '../layout/profile'
@@ -43,7 +42,7 @@ const Routes = ({ query, date}) => {
         )}
         /> */}
 
-        <PrivateRoute exact path='/dashboard' component={Entries}/>
+        <PrivateRoute exact path='/dashboard' component={Dashboard}/>
         <PrivateRoute exact path='/camera' component={Camera}/>
         <PrivateRoute exact path='/create-profile' component={ProfileForm}/>
         <PrivateRoute exact path='/update-profile' component={EditProfile}/>
