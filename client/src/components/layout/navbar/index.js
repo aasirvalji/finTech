@@ -58,7 +58,7 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
             <Toolbar id={styles.toolbar}>
             <div id={styles.headerLeft}>
             <Link to="/">
-          <img src='https://assets.stickpng.com/images/58406746657b0e0e08612e45.png'></img>
+          <img width="50px" height = "50px"></img>
         </Link>
           </div>
 

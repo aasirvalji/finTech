@@ -14,7 +14,10 @@
 }
 
 #navContainer img {
-  width: 40px;
+  background-image: url("../../../img/logo.png");
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  border-color: rgb(0, 0, 0);
 }
 
 #toolbar {

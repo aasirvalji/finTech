@@ -69,3 +69,8 @@
   align-items: center;
   height: 100%;
 }
+
+.showcase {
+  background-color: black;
+  background-size: 1000px 500px;
+}

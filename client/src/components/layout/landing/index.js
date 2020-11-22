@@ -20,13 +20,17 @@ const Landing = ({ isAuthenticated }) => {
 
     return (
       <section class="showcase">
-      <div class="container grid">
-          <div class="showcase-form card">
-              <h2>Request a Demo</h2>
-          </div>
 
-      </div>
-  </section>
+        <div class="firstGrid">
+            <h2>Welcome to ManageIT, The App That Will Manage All Your Financial Needs</h2>
+        </div>
+        <div class="secondGrid">
+            <p> For people in need of wealth management, from people who once needed wealth management. 
+            ManageIT allows you to manage your money in a way that you are living your optimal life in the present
+             day, and for years to come. Create a free account to get started today.
+            </p>
+        </div>
+    </section>
     )
 }
 

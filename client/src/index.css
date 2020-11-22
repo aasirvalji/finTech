@@ -8,11 +8,11 @@
 :root {
   --primary-color: #000000;
   --secondary-color: #1c3fa8;
-  --tertiary-color: #ffffff;
+  --tertiary-color: #000000;
   --success-color: #5cb85c;
   --error-color: #d9534f;
 }
-
 body {
   background-color: #ffffff;
 }
+
