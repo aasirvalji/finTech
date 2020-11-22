@@ -9,6 +9,8 @@ import Entries from '../layout/entries'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
 import Profile from '../layout/profile'
+import Camera from '../layout/camera'
+import ContinousSlider from '../layout/sliding-panel'
 
 const Routes = ({ query, date}) => {
   return (
@@ -19,6 +21,7 @@ const Routes = ({ query, date}) => {
       <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/upload" component={Upload} />
+        <Route exact path="/slider" component={ContinousSlider} />
         <PrivateRoute exact path="/compare" component={Layout} />
         
         <Route exact path="/create-log"
@@ -28,6 +31,7 @@ const Routes = ({ query, date}) => {
         />
 
         <PrivateRoute exact path='/dashboard' component={Entries}/>
+        <PrivateRoute exact path='/camera' component={Camera}/>
         <PrivateRoute exact path='/profile' component={Profile}/>
       </Switch>
     </section>
