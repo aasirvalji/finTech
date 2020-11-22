@@ -78,6 +78,12 @@ const ProfileSchema = new mongoose.Schema({
       },
     },
   ],
+  receipts: [
+    {
+      type: String,
+      required: false,
+    }
+    ],
   createdAt: {
     type: Date,
     default: Date.now,

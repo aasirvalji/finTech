@@ -7,6 +7,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Chart from '../charts/main'
 import axios from 'axios';
+import Slider from '../slider'
 
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -14,6 +15,8 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
+
+const bucketRoot = 'https://my-aws-bucket-90091.s3.amazonaws.com/'
 
 const Dashboard = ({ getCurrentProfile,  profile: { profile, loading }, auth: {user}}) => {
   const [recomendations, setRecomendations] = useState(undefined);
@@ -125,7 +128,7 @@ return (
 <div className='fetch-links-container'>
   <h1>Personal recommendations</h1>
   {(recomendations.substring(0, recomendations.length - 1).split(',')).map(r => {
-    return <a>{r}</a>
+    return <a style={{width: '80%', margin: 'auto', textAlign: 'center', color: 'white'}}>{r}</a>
   })}
 </div>
 }
@@ -135,28 +138,38 @@ return (
 {
   showInvesting && 
   <div className='investing-recos'>
+    <p style={{width: '80%', margin: 'auto', textAlign: 'center'}}>
 Based on today's economic data here are the top 3 stocks to invest in:
 1. FedEx Stock (NYSE: FDX)
 FedEx stock has a flat base with a 293.40 buy point. It already staged a rebound from its 50-day moving average, which offered a buying opportunity. Investors could still buy off the line, though they might want to wait to clear last week's high, with a 289.86 entry.
 
-
+<br></br>
 2. Target Stock (NYSE: TGT)
 Target is in buy range after clearing a short pattern in heavy volume. The ideal buy point is 167.52.  The latest pattern was a bit short for a flat base, just above a prior flat base, but it's still actionable.
-
+<br></br>
 3. AMD Stock (NASDAQ: AMD)
 AMD stock has a perfect IBD Composite Rating of 99. It has earned this due to its excellent earnings and stock market performance, and it holds a perfect EPS Rating of 99.
-
+<br></br>
 
 Open a TFSA today with SociaBank.
-
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.scotiaitrade.com%2Fen%2Fdirect-investing-and-online-trading.html&psig=AOvVaw1vSsJ0kgj8_0-p-nu4qTuK&ust=1606134877001000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCVqumUlu0CFQAAAAAdAAAAABAD"></img>
+</p>
+<img src="https://www.baystbull.com/wp-content/uploads/2019/08/scotia-logo.jpg" style={{width: '20rem', display: 'block', margin: '2rem auto auto auto', textAlign: 'center'}}></img>
 </div>
 
 }
 
 <Button onClick={() => setShow(!show)} id='toggle-button'>View my receipts</Button>
-{/* {show && profile.
-} */}
+
+{show && profile.receipts.length > 0 ?
+profile.receipts.map(p => <img src={bucketRoot + "/" + p} alt={p}></img>)
+
+:
+<p>rip</p>
+}
+
+<Slider/>
+
+
 </>
 }
 

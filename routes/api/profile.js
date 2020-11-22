@@ -77,4 +77,36 @@ router.put('/', auth, async (req, res, next) => {
     return res.status(200).json({ success: true, data: profile });
   });
 
+  // Update profile info
+router.post('/aws/image', auth, async (req, res, next) => {
+  console.log('reached', req.body)
+  let profile = await Profile.findOne({ user: req.user.id});
+  let user = await User.findById(req.user.id);
+
+  if (!profile) return res.status(400).json({ message: 'Profile does not exist'});
+
+  var newReceipts = [];
+
+  if (profile.receipts.length > 0) newReceipts = profile.receipts
+
+  var unique = true;
+  for (var i = 0; i < newReceipts.length; i++){
+    if (newReceipts[i] === req.body.imgUrl) {
+    unique = false;
+    break;
+    }
+  }
+
+  if (unique){
+  newReceipts.push(`${user.email}-${req.body.imgUrl}`)
+
+  profile.receipts = newReceipts;
+
+  await profile.save();
+
+  return res.status(200).json({ success: true, data: profile });
+  }
+  else return res.status(200).json({ success: true, data: profile });
+});
+
   module.exports = router;

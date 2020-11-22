@@ -76,7 +76,9 @@
   text-align: left;
 }
 
-#dashboard-reco-button {
+#dashboard-reco-button,
+#toggle-button,
+#investing-reco-button {
   margin: 15rem auto 5rem auto;
   padding: 2rem 4rem;
   display: flex;
@@ -114,4 +116,17 @@
 #profile-form-button {
   background-color: black;
   color: white;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+p {
+  font-size: 1.1rem;
+  text-align: center;
 }
