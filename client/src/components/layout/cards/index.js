@@ -18,6 +18,7 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 const Dashboard = ({ getCurrentProfile,  profile: { profile, loading }, auth: {user}}) => {
   const [recomendations, setRecomendations] = useState(undefined);
   const [showInvesting, setShowInvesting] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     getCurrentProfile();
@@ -153,6 +154,9 @@ Open a TFSA today with SociaBank.
 
 }
 
+<Button onClick={() => setShow(!show)} id='toggle-button'>View my receipts</Button>
+{/* {show && profile.
+} */}
 </>
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './helper.css'
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const bucketRoot = 'https://my-aws-bucket-90091.s3.amazonaws.com/'
 
@@ -13,14 +14,11 @@ class HelperUpload extends Component {
       url : "",
       fileName: "",
       picFile: undefined,
-      imagePreview: undefined
+      imagePreview: undefined,
+      name: ""
     }
   }
-  
-  handleChange = (ev) => {
-    this.setState({success: false, url : ""});
-    
-  }
+
   // Perform the upload
   handleUpload = (ev) => {
     console.log(this.uploadInput)
@@ -29,7 +27,7 @@ class HelperUpload extends Component {
     // Split the filename to get the name and type
     let fileParts = this.props.picFile.name.split('.');
 
-    let fileName = fileParts[0];
+    let fileName = this.state.name;
     let fileType = fileParts[1];
 
     console.log("Preparing the upload");
@@ -73,13 +71,14 @@ class HelperUpload extends Component {
           //   console.log(error);
           // })
          
-          axios.post("https://hek-wetern-sehwen.herokuapp.com/image",{
-            imgUrl: url
+          axios.post("http://localhost:5000/api/profile/aws/image",{
+            imgUrl: fileName
           },
           )
           .then(response => {
             console.log(url)
            console.log(response.data)
+           this.setState({name: ''});
           })      
       .catch(error => {
         console.log(error);
@@ -101,6 +100,9 @@ class HelperUpload extends Component {
     document.getElementById('display-img').src = `https://my-aws-bucket-90091.s3.amazonaws.com/${this.state.fileName}`
   }
   
+  changeTitle = (e) =>{
+    this.setState({name: e.target.value});
+  }
   
   render() {
     return (
@@ -109,12 +111,24 @@ class HelperUpload extends Component {
           {this.props.picFile !== undefined && 
           <img src={ this.props.picFile !== undefined ? URL.createObjectURL(this.props.picFile) : ''} alt='ahlie'/>
   }
-        {this.props.picFile !== undefined &&  <Button onClick={this.handleUpload} id='helper-upload-button'>Submit</Button>}
+
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Receipt Name"
+            name="name"
+            value={this.state.name}
+            onChange={this.changeTitle}
+            id="text-field"
+          />
+        </div>
+
+        {this.props.picFile !== undefined && this.state.name && <Button onClick={this.handleUpload} id='helper-upload-button'>Submit</Button>}
         
         {this.state.success &&
           
           <div style={{padding:50}}>
-          <h3 style={{color: 'green'}}>SUCCESSFUL UPLOAD</h3>
+          <h3 style={{color: 'green', textAlign: 'center'}}>SUCCESSFUL UPLOAD</h3>
           <a href={this.state.url}>Access the file here</a>
           <br/>
         </div>

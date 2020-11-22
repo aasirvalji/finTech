@@ -7,14 +7,25 @@ import Dashboard from '../layout/cards'
 import Alert from '../layout/alert'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
+import Recos from '../layout/recos'
 // import Profile from '../layout/profile'
 import Camera from '../layout/camera'
 import ContinousSlider from '../layout/sliding-panel'
 import InputPage from '../layout/input-page'
 import ProfileForm from '../layout/profile/create/index'
 import EditProfile from '../layout/profile/update/index'
+import PropTypes from "prop-types";
 
-const Routes = ({ query, date}) => {
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+// //materialUI imports
+// import './index.module.css'
+// import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+// import Paper from '@material-ui/core/Paper'
+
+const Routes = ({ query, date, auth }) => {
   return (
     <section>
       { console.log(query, date)}
@@ -22,7 +33,8 @@ const Routes = ({ query, date}) => {
       <Switch>
       <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/upload" component={Upload} />
+        <Route exact path="/upload" component={Upload}/>
+        <Route exact path="/my-histoy" component={Recos}/>
         {/* <Route exact path="/slider" component={ContinousSlider} /> */}
 
         {/* receipt check  */}
@@ -51,4 +63,12 @@ const Routes = ({ query, date}) => {
   );
 };
 
-export default Routes;
+Routes.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth, //if user viewing profile has the same id as the profile being viewed, they should be able to edit
+});
+
+export default connect(mapStateToProps, { })(withRouter(Routes));

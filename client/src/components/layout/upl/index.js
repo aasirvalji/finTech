@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './index.css'
+import TextField from '@material-ui/core/TextField';
+import { connect } from 'react-redux'
 
 const bucketRoot = 'https://my-aws-bucket-90091.s3.amazonaws.com/'
 
@@ -36,7 +38,7 @@ class Upload extends Component {
 
     // Send filename and filetype to get back a presigned URL that we can write to
     axios.post("http://localhost:5000/api/image",{
-      fileName : fileName,
+      fileName : this.state.selectedFileName.split('.')[0],
       fileType : fileType
     })
     .then(response => {
@@ -63,8 +65,8 @@ class Upload extends Component {
         console.log("Response from s3")
         this.setState({success: true});
 
-            axios.post("http://localhost:5000/api/image/parse",{
-                imgUrl: bucketRoot + fileName
+            axios.post("http://localhost:5000/api/profile/aws/image",{
+                imgUrl: fileName
               })
               .then(response => {
                console.log(response.data.text)
@@ -102,7 +104,7 @@ class Upload extends Component {
         <center>
           <h1>Upload a file</h1>
           {this.state.success ? 
-          
+         
           <div style={{padding:50}}>
           <h3 style={{color: 'green'}}>SUCCESSFUL UPLOAD</h3>
           <a href={this.state.url}>Access the file here</a>
@@ -135,4 +137,9 @@ class Upload extends Component {
     );
   }
 }
-export default Upload;
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(Upload);

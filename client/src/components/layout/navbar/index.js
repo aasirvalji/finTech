@@ -20,6 +20,12 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading }, profile: { profile
           <span>Dashboard</span>
         </Link>
       </li>
+          {/* <li>
+        <Link to="/my-history">
+        <i class="fas fa-chart-line"/>{" "}
+          <span>Recommendations &amp; Planning</span>
+        </Link>
+      </li> */}
       <li>
         <Link to="/create-a-entry">
         <i class="fas fa-plus-circle"/>{" "}
