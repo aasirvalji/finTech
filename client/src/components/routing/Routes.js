@@ -11,6 +11,7 @@ import Upload from '../layout/upl'
 import Profile from '../layout/profile'
 import Camera from '../layout/camera'
 import ContinousSlider from '../layout/sliding-panel'
+import InputPage from '../layout/input-page'
 
 const Routes = ({ query, date}) => {
   return (
@@ -23,6 +24,7 @@ const Routes = ({ query, date}) => {
         <Route exact path="/upload" component={Upload} />
         <Route exact path="/slider" component={ContinousSlider} />
         <PrivateRoute exact path="/compare" component={Layout} />
+        <PrivateRoute exact path="/entry" component={InputPage} />
         
         <Route exact path="/create-log"
         render={(props) => (

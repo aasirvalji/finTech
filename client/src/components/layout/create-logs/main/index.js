@@ -14,9 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 
-const alanKey = 'a36736f23b21bfd709dcc410696ad0a52e956eca572e1d8b807a3e2338fdd0dc/stage';
-
-const Dashboard = ({
+const VoiceGuide = ({
     addEntry,
     getEntry,
     qq, 
@@ -129,7 +127,7 @@ const submit = () => {
     )
 }
 
-Dashboard.propTypes = {
+VoiceGuide.propTypes = {
     auth: PropTypes.object.isRequired,
     addEntry: PropTypes.func.isRequired,
     getEntry: PropTypes.func.isRequired
@@ -140,5 +138,5 @@ Dashboard.propTypes = {
   });
   
   export default connect(mapStateToProps, { addEntry, getEntry })(
-    Dashboard
+    VoiceGuide
   );

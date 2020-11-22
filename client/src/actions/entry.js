@@ -4,8 +4,12 @@ import {
  GET_ENTRIES,
  CREATE_ENTRY, 
  GET_ENTRY,
- ENTRY_ERROR
+ ENTRY_ERROR,
+ GET_PROFILE,
+ CLEAR_PROFILE
 } from "./types";
+
+import { getCurrentProfile } from './profile'
 
 // Get posts
 export const getEntries = () => async (dispatch) => {
@@ -39,6 +43,12 @@ export const addEntry = (formData) => async (dispatch) => {
       type: CREATE_ENTRY,
       payload: res.data,
     });
+
+    // causes profile refetch on profile-dependent pages
+    dispatch({
+      type: CLEAR_PROFILE,
+    });
+    // getCurrentProfile();
 
     dispatch(setAlert("Entry Created", "success"));
   } catch (err) {

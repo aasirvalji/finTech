@@ -5,7 +5,14 @@
 }
 
 #helper-upload-button {
-  background-color: black;
-  margin-bottom: 3rem;
-  color: white;
+  border: none;
+  background: #000000;
+  color: #ffffff !important;
+  font-weight: 100;
+  padding: 10px;
+  margin: 1rem auto;
+  text-transform: uppercase;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease 0s;
 }

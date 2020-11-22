@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './index.css'
 
 const bucketRoot = 'https://my-aws-bucket-90091.s3.amazonaws.com/'
 
@@ -9,13 +10,16 @@ class Upload extends Component {
     this.state = {
       success : false,
       url : "",
-      fileName: ""
+      fileName: "",
+      selectedFileName: ""
     }
   }
   
   handleChange = (ev) => {
     this.setState({success: false, url : ""});
-    
+   if (document.getElementById('fileInput').files.item(0).name.length > 0) { 
+     this.setState({ selectedFileName: document.getElementById('fileInput').files.item(0).name })
+   }
   }
   // Perform the upload
   handleUpload = (ev) => {
@@ -64,18 +68,22 @@ class Upload extends Component {
               })
               .then(response => {
                console.log(response.data.text)
+               this.setState({ selectedFileName: ''});
               })      
           .catch(error => {
-            alert("ERROR " + JSON.stringify(error));
+            console.log((error));
+            this.setState({ selectedFileName: ''});
           })
 
       })
       .catch(error => {
-        alert("ERROR " + JSON.stringify(error));
+        console.log((error));
+        this.setState({ selectedFileName: ''});
       })
     })
     .catch(error => {
-      alert(JSON.stringify(error));
+      console.log((error));
+      this.setState({ selectedFileName: ''});
     })
   }
 
@@ -89,9 +97,10 @@ class Upload extends Component {
   render() {
     return (
       <div className="App">
-        <hr></hr>
+<div className='upload-display-container'>
+
         <center>
-          <h1>UPLOAD A FILE</h1>
+          <h1>Upload a file</h1>
           {this.state.success ? 
           
           <div style={{padding:50}}>
@@ -101,16 +110,27 @@ class Upload extends Component {
         </div>
           
           : null}
-          <input onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }} type="file"/>
+
+          <label class="custom-file-upload">
+            Select file
+          <input onChange={this.handleChange} ref={(ref) => { this.uploadInput = ref; }} type="file" id='fileInput'/>
+          </label>
+
+          { this.state.selectedFileName && <p>Image selected: {this.state.selectedFileName} </p>}
+
           <br/>
-          <button onClick={this.handleUpload}>UPLOAD</button>
+         {this.uploadInput !== undefined && <button id="upload-button" onClick={this.handleUpload}>UPLOAD</button>}
         </center>
-        <hr></hr>
-            Enter photo name: <input type='text' onChange={(e) => this.setState({ fileName: e.target.value })}></input>
-            <button onClick={() => this.getImageFromS3()}>Get Image</button>
+
+          
+        {/* <hr></hr>
+            <h3> Enter photo name: </h3> <input type='text' onChange={(e) => this.setState({ fileName: e.target.value })}></input>
+            <button id="upload-button" onClick={() => this.getImageFromS3()}>Get Image</button>
             <br></br>
             <img id='display-img' alt='display'></img>
-        <hr></hr>
+        <hr></hr> */}
+
+        </div>
       </div>
     );
   }

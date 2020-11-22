@@ -52,35 +52,11 @@ const Layout = ({ getEntries, entry: { entries }}) => {
 // })
     }, [])
 
-    const calcSum = (data) => {
-      var sum = 0;
-      for (var i = 0; i < data.length; i++){
-        var { totalScore } = data[i];
-        sum += totalScore;
-      }
-      return sum / data.length;
-    }
 
     return (
       <>
         <div className='news-layout-container'>
-        {!entries ? <p>loading</p> : calcSum(entries) < 20 
-        ? <>
-        <h1>Awesome! You're below the average person when it comes to CO2 emissions</h1>
-        <p>Make a command to find out whats happening world wide with the environment</p>
-        </>
-         : calcSum(entries) === 20 
-        ? 
-        <>
-        <h1>You're on par with the average person when it comes to CO2 emissions</h1>
-        <p>Make a command to find out whats happening world wide with the environment</p>
-        </>
-        : 
-        <>
-        <h1>Oh no! You're above the average person when it comes to CO2 emissions</h1>
-        <p>Make a command to find out whats happening world wide with the environment</p>
-        </>
-        }
+        <p>moneyz</p>
         </div>
         <NewsCards articles={newsArticles} activeArticle={activeArticle}/>
         </>

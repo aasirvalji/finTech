@@ -12,18 +12,10 @@ class HelperUpload extends Component {
       success : false,
       url : "",
       fileName: "",
-      picFile: undefined
+      picFile: undefined,
+      imagePreview: undefined
     }
   }
-
-  // componentDidUpdate(nextProps) {
-  //   const { show } = this.props
-  //   if (nextProps.show !== show) {
-  //    if (show) {
-  //     getMoreData().then(resp => this.setState({ data: resp.data }))
-  //    }
-  //   }
-  //  }
   
   handleChange = (ev) => {
     this.setState({success: false, url : ""});
@@ -101,12 +93,13 @@ class HelperUpload extends Component {
     return (
       <div className="helper-upload-container">
           { console.log( this.state.picFile )}
-          { this.props.picFile && <p>file exists</p> }
-
-    {this.props.picFile !== undefined &&  
-    <Button onClick={this.handleUpload} id='helper-upload-button'>Submit file</Button>}
-
+          {this.props.picFile !== undefined && 
+          <img src={ this.props.picFile !== undefined ? URL.createObjectURL(this.props.picFile) : ''} alt='ahlie'/>
+  }
+        {this.props.picFile !== undefined &&  <Button onClick={this.handleUpload} id='helper-upload-button'>Submit</Button>}
+        
         {this.state.success &&
+          
           <div style={{padding:50}}>
           <h3 style={{color: 'green'}}>SUCCESSFUL UPLOAD</h3>
           <a href={this.state.url}>Access the file here</a>

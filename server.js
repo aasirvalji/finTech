@@ -50,6 +50,10 @@ app.use('/api/entries', require('./routes/api/entries'));
 app.use('/api/image', require('./routes/api/image'))
 app.use('/api/profile', require('./routes/api/profile'))
 
+app.post('/camera', async (req, res) => {
+  console.log(req.files)
+})
+
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

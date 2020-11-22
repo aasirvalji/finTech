@@ -23,7 +23,7 @@ return (
 
   <>
 
-{profile === undefined || (profile && profile.transactions.length === 0) ?
+{profile === undefined || profile === null || (profile && profile.transactions.length === 0) ?
 
 <div id='dashboard-timeline-container'>
 
@@ -73,16 +73,15 @@ return (
                 <h4>Outing</h4>
                 <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
               </div>
-              <div class="card">
-                <h4>Clojure</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
-              </div>
         </div>
     
     </div>
     
     : 
-<Chart/>
+   <>
+    {console.log(profile)}
+<Chart transactions={profile.transactions}/>
+</>
 }
 
   </>
