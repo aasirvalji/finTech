@@ -38,7 +38,7 @@ const submit = () => {
 
     return (
         <>
-
+        {console.log(query, date)}
         <div className='dashboard-container'>
            <Paper elevation={3} className='dashboard-right'>
            <h1>Voice queue</h1>

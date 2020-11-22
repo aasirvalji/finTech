@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, Fragment }  from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InputPage() {
+export default function InputPage({ qq, dd }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -79,14 +79,14 @@ export default function InputPage() {
         <Tab label="SpeakiT" {...a11yProps(1)} />
         <Tab label="UploadiT" {...a11yProps(2)} />
       </Tabs>
-
+    {console.log(qq, dd, 'AHAJKLAJKLJAKSKA')}
 {/* test */}
 <div className='input-tabs'>
 <TabPanel value={value} index={0} id='tab-1'>
         <Camera/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-       <VoiceGuide/>
+       <VoiceGuide qq={qq} dd={dd}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
       <Upload/>

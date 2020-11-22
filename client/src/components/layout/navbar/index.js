@@ -21,7 +21,7 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading }, profile: { profile
         </Link>
       </li>
       <li>
-        <Link to="/create-log">
+        <Link to="/create-a-entry">
         <i class="fas fa-plus-circle"/>{" "}
           <span>Create Log</span>
         </Link>

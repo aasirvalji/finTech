@@ -10,6 +10,8 @@ const hpp = require('hpp');
 const cors = require('cors');
 var fileupload = require("express-fileupload");
 
+const User = require('./models/User')
+
 // Load env vars
 dotenv.config({ path: '.env' });
 
@@ -52,6 +54,11 @@ app.use('/api/profile', require('./routes/api/profile'))
 
 app.post('/camera', async (req, res) => {
   console.log(req.files)
+})
+
+app.get('/', async (req, res) => {
+  const articles = await User.find();
+  return res.status(200).json({ articles })
 })
 
 // Serve static assets in production

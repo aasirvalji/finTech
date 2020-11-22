@@ -137,4 +137,15 @@ router.get("/demo/:demo_user_id", async (req, res) => {
   }
 });
 
+// test route
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.status.json(users);
+  } catch (err) {
+    console.err(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

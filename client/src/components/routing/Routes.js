@@ -29,13 +29,19 @@ const Routes = ({ query, date}) => {
         {/* receipt check  */}
         <PrivateRoute exact path="/compare" component={Layout} />
 
-        <PrivateRoute exact path="/entry" component={InputPage} />
+        {/* <Route exact path="/entry" component={InputPage} qq={query} dd={date}/> */}
+
+        <Route exact path="/create-a-entry"
+        render={(props) => (
+          <InputPage {...props} qq={query} dd={date}/>
+        )}
+        />
         
-        <Route exact path="/create-log"
+        {/* <Route exact path="/create-log"
         render={(props) => (
           <Dashboard {...props} qq={query} dd={date}/>
         )}
-        />
+        /> */}
 
         <PrivateRoute exact path='/dashboard' component={Entries}/>
         <PrivateRoute exact path='/camera' component={Camera}/>
