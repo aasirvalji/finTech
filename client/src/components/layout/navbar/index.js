@@ -33,6 +33,12 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
         </Link>
       </li>
       <li>
+        <Link to="/manage-profile">
+        <i class="fas fa-user-friends"/>{" "}
+          <span>Manage Profile</span>
+        </Link>
+      </li>
+      <li>
         <a onClick={logout}>
           <i className="fas fa-sign-out-alt" />{" "}
           <span>Logout</span>{" "}

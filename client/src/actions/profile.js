@@ -4,6 +4,7 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   CLEAR_PROFILE,
+  UPDATE_PROFILE,
 } from "./types";
 
 // Get current users profile
@@ -22,7 +23,7 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
-// Create or update profile
+// Create profile
 export const createProfile = (formData, history, edit = false) => async (
   dispatch
 ) => {
@@ -40,18 +41,11 @@ export const createProfile = (formData, history, edit = false) => async (
       payload: res.data,
     });
 
+    history.push("/dashboard");
+
     dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
 
-    if (!edit) {
-      //If we've created a new profile, redirect user to the dashboard
-      history.push("/dashboard");
-    }
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-    }
 
     dispatch({
       type: PROFILE_ERROR,
@@ -59,3 +53,35 @@ export const createProfile = (formData, history, edit = false) => async (
     });
   }
 };
+
+// Update profile
+export const updateProfile = (formData, history, edit = false) => async (
+  dispatch
+) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.put("/api/profile", formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    history.push("/dashboard");
+
+    dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
+
+  } catch (err) {
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+

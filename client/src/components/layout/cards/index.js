@@ -23,7 +23,7 @@ return (
 
   <>
 
-{profile === undefined || profile === null || (profile && profile.transactions.length === 0) ?
+{profile === undefined || profile === null || (profile && !profile.transactions) || (profile.transactions.length === 0) ?
 
 <div id='dashboard-timeline-container'>
 
@@ -39,7 +39,7 @@ return (
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
-          <TimelineDot id = {(profile && profile.transactions.length  > 0 )? 'complete' : 'incomplete'}  />
+          <TimelineDot id = {(profile && profile.transactions && profile.transactions.length  > 0 )? 'complete' : 'incomplete'}  />
         </TimelineSeparator>
         <TimelineContent><p>Start recording transactions</p></TimelineContent>
       </TimelineItem>
@@ -78,6 +78,9 @@ return (
     </div>
     
     : 
+    // (profile.transactions.length === 0) ? 
+    
+    // : 
    <>
     {console.log(profile)}
 <Chart transactions={profile.transactions}/>

@@ -8,10 +8,11 @@ import Alert from '../layout/alert'
 import Entries from '../layout/entries'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
-import Profile from '../layout/profile'
+// import Profile from '../layout/profile'
 import Camera from '../layout/camera'
 import ContinousSlider from '../layout/sliding-panel'
 import InputPage from '../layout/input-page'
+import ProfileForm from '../layout/profile/create/index'
 
 const Routes = ({ query, date}) => {
   return (
@@ -34,7 +35,7 @@ const Routes = ({ query, date}) => {
 
         <PrivateRoute exact path='/dashboard' component={Entries}/>
         <PrivateRoute exact path='/camera' component={Camera}/>
-        <PrivateRoute exact path='/profile' component={Profile}/>
+        <PrivateRoute exact path='/manage-profile' component={ProfileForm}/>
       </Switch>
     </section>
   );

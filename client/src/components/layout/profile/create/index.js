@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getCurrentProfile, createProfile } from "../../../actions/profile";
+import { getCurrentProfile, createProfile } from "../../../../actions/profile";
 
 //materialUI imports
 import './index.module.css'
@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper'
 
-const Profile = ({
+const ProfileForm = ({
   getCurrentProfile,
   createProfile,
   history,
@@ -44,7 +44,6 @@ const Profile = ({
   return (
     <>
     { /* If user has not created a profile yet */ }
-      {!profile && <>
         <form className="profile-form" onSubmit={(e) => onSubmit(e)}>
         <div className="profile-form-group">
           <TextField
@@ -94,12 +93,11 @@ const Profile = ({
         </div>
         <Button type="submit" className="btn btn-primary" value="Create Profile" id='profile-form-button'>Enter</Button>
       </form>
-      </>}
     </>
   );
 };
 
-Profile.propTypes = {
+ProfileForm.propTypes = {
   profile: PropTypes.object.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   createProfile: PropTypes.func.isRequired,
@@ -111,4 +109,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth, //if user viewing profile has the same id as the profile being viewed, they should be able to edit
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, createProfile })(withRouter(Profile));
+export default connect(mapStateToProps, { getCurrentProfile, createProfile })(withRouter(ProfileForm));
