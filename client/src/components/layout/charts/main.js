@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import {Bar, Line, Pie} from 'react-chartjs-2';
 
 var data = {
-        labels: ['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],
+        // dates in ascending order on the x-axis
+
+
+
+
+
+
+
+        labels: ['16/04/1994', '19/07/2000', '03/05/2005', '07/09/2017','06/11/2020'],
         datasets:[
           {
             label:'Population',
-            data:[
-              617594,
-              181045,
-              153060,
-              106519,
-              105162,
-              95072
-            ],
+
+          // y-axis totals
+            data:[10,20,30,40,50],
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
               'rgba(54, 162, 235, 0.6)',

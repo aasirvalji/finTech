@@ -29,6 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.10",
     "node-geocoder": "^3.27.0",
+    "rc-slider": "^9.6.4",
     "tesseract.js": "^2.1.4",
     "xss-clean": "^0.1.1"
   },

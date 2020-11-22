@@ -5,7 +5,6 @@ import Login from "../auth/login";
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../layout/create-logs/main'
 import Alert from '../layout/alert'
-import Entries from '../layout/entries'
 import Layout from '../layout/news/layout'
 import Upload from '../layout/upl'
 import Profile from '../layout/profile'
@@ -29,8 +28,8 @@ const Routes = ({ query, date}) => {
           <Dashboard {...props} qq={query} dd={date}/>
         )}
         />
-
-        <PrivateRoute exact path='/dashboard' component={Entries}/>
+{/* 
+        <PrivateRoute exact path='/dashboard' component={Entries}/> */}
         <PrivateRoute exact path='/camera' component={Camera}/>
         <PrivateRoute exact path='/profile' component={Profile}/>
       </Switch>
