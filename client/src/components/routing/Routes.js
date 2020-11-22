@@ -24,8 +24,11 @@ const Routes = ({ query, date}) => {
       <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/upload" component={Upload} />
-        <Route exact path="/slider" component={ContinousSlider} />
+        {/* <Route exact path="/slider" component={ContinousSlider} /> */}
+
+        {/* receipt check  */}
         <PrivateRoute exact path="/compare" component={Layout} />
+
         <PrivateRoute exact path="/entry" component={InputPage} />
         
         <Route exact path="/create-log"

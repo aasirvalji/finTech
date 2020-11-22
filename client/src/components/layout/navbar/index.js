@@ -32,12 +32,14 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading }, profile: { profile
           <span>Compare Statistics</span>
         </Link>
       </li>
+      {!profile && 
       <li>
-        <Link to="/create-profile">
+        <Link to="/manage-profile">
         <i class="fas fa-user-friends"/>{" "}
-          <span>Create Profile</span>
+          <span>Manage profile</span>
         </Link>
       </li>
+      }
       <li>
         <a onClick={logout}>
           <i className="fas fa-sign-out-alt" />{" "}
