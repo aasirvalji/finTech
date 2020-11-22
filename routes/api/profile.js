@@ -46,16 +46,18 @@ router.post('/', auth, async (req, res, next) => {
 
 
 // Update profile info
-router.put('/:id', auth, async (req, res, next) => {
-    let user = await User.findById(req.user.id);
+router.put('/', auth, async (req, res, next) => {
+    let profile = await Profile.findOne({ user: req.user.id});
     
-    if (!user) return res.status(400).json({ message: 'User does not exist'});
+    if (!profile) return res.status(400).json({ message: 'Profile does not exist'});
 
-    let profile = await Profile.findById(req.params.id)
-  
-    // Make sure user is bootcamp owner
-    if (profile.user !== req.user.id)  return status(400).json({ message: 'Unauthorized'})
-  
+    var body = req.body;
+    body.user = req.user.id;
+    body.age = parseInt(body.age);
+    body.gender = body.gender.toUpperCase();
+    body.student = body.student.toUpperCase() === 'Y' ? true : false;
+    body.salary = parseInt(body.salary);
+
     if (req.body.address){
       profile.address = req.body.address
       await profile.save();
@@ -67,12 +69,12 @@ router.put('/:id', auth, async (req, res, next) => {
         delete req.body.transactions
       }
   
-    profile = await Profile.findByIdAndUpdate(user.id, req.body, {
+    profile = await Profile.findByIdAndUpdate(req.user.id, body, {
       new: true,
       runValidators: true,
     });
   
-    return res.status(200).json({ success: true, data: user });
+    return res.status(200).json({ success: true, data: profile });
   });
 
   module.exports = router;

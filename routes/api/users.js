@@ -17,7 +17,7 @@ router.post(
   "/",
   async (req, res) => {
 
-    const { name, email, password } = req.body;
+    const { name, email, password, age, gender, student, salary, address } = req.body;
     try {
       let user = await User.findOne({ email }); //checking to see if user exists  by email
       console.log(req.body)
