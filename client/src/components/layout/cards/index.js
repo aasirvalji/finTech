@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Grow, Typography } from '@material-ui/core';
+import { Button, Grid, Grow, Typography } from '@material-ui/core';
 import './index.css'
 import { getCurrentProfile, createProfile } from "../../../actions/profile";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Chart from '../charts/main'
+import axios from 'axios';
 
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -15,9 +16,38 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 
 const Dashboard = ({ getCurrentProfile,  profile: { profile, loading }, auth: {user}}) => {
+  const [recomendations, setRecomendations] = useState(undefined);
+  const [showInvesting, setShowInvesting] = useState(false);
+
   useEffect(() => {
     getCurrentProfile();
+    
   }, [getCurrentProfile]);
+
+  const fetchRecomendations = () => {
+    var data = {
+      age: profile.age,
+      gender: profile.gender,
+      student: profile.student,
+      salary: profile.salary,
+      country: profile.location.country,
+      city: profile.location.city,
+      state: profile.location.state
+    }
+    axios.post("https://hek-wetern-sehwen.herokuapp.com/getlinks", data)
+    .then(response => {
+     console.log(response.data);
+     setRecomendations(response.data);
+    })      
+.catch(error => {
+  console.log(error);
+})
+  }
+
+  const fetchInvesting = () => {
+    var newVal = !showInvesting;
+    setShowInvesting(newVal)
+  }
 
 return (
 
@@ -48,30 +78,34 @@ return (
     <h2>Just a few of our trackable categories</h2>
 
 
-        <div class="container flex">
+    <div class="container flex">
             <div class="card">
                 <h4>Food</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/857/857681.svg" alt=""></img>
             </div>
             <div class="card">
-                <h4>Auto</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
-              </div>
-              <div class="card">
                 <h4>Home</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/846/846449.svg" alt=""></img>
               </div>
               <div class="card">
-                <h4>Utilities</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
+                <h4>Transport</h4>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/995/995334.svg" alt=""></img>
               </div>
               <div class="card">
-                <h4>Travel</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
+                <h4>Leisure</h4>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/3028/3028292.svg" alt=""></img>
               </div>
               <div class="card">
-                <h4>Outing</h4>
-                <img src="https://cdn.pixabay.com/photo/2016/10/23/16/04/splash-1763305__340.png" alt=""></img>
+                <h4>Health</h4>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/898/898655.svg" alt=""></img>
+              </div>
+              <div class="card">
+                <h4>Subscriptions</h4>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/2178/2178036.svg" alt=""></img>
+              </div>
+              <div class="card">
+                <h4>Other</h4>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/2911/2911213.svg" alt=""></img>
               </div>
         </div>
     
@@ -82,8 +116,43 @@ return (
     
     // : 
    <>
+   {/* temp solutions */}
     <h1 className='dashboard-header'>Hello {user && user.name}</h1>
 <Chart transactions={profile.transactions}/>
+<Button onClick={() => fetchRecomendations()} id='dashboard-reco-button'>Are there any grants available to me?</Button>
+{recomendations && 
+<div className='fetch-links-container'>
+  <h1>Personal recommendations</h1>
+  {(recomendations.substring(0, recomendations.length - 1).split(',')).map(r => {
+    return <a>{r}</a>
+  })}
+</div>
+}
+<Button onClick={() => fetchInvesting()} id='investing-reco-button'>What should I invest in?</Button>
+
+
+{
+  showInvesting && 
+  <div className='investing-recos'>
+Based on today's economic data here are the top 3 stocks to invest in:
+1. FedEx Stock (NYSE: FDX)
+FedEx stock has a flat base with a 293.40 buy point. It already staged a rebound from its 50-day moving average, which offered a buying opportunity. Investors could still buy off the line, though they might want to wait to clear last week's high, with a 289.86 entry.
+
+
+2. Target Stock (NYSE: TGT)
+Target is in buy range after clearing a short pattern in heavy volume. The ideal buy point is 167.52.  The latest pattern was a bit short for a flat base, just above a prior flat base, but it's still actionable.
+
+3. AMD Stock (NASDAQ: AMD)
+AMD stock has a perfect IBD Composite Rating of 99. It has earned this due to its excellent earnings and stock market performance, and it holds a perfect EPS Rating of 99.
+
+
+Open a TFSA today with SociaBank.
+
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.scotiaitrade.com%2Fen%2Fdirect-investing-and-online-trading.html&psig=AOvVaw1vSsJ0kgj8_0-p-nu4qTuK&ust=1606134877001000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCVqumUlu0CFQAAAAAdAAAAABAD"></img>
+</div>
+
+}
+
 </>
 }
 

@@ -44,7 +44,8 @@ const ProfileForm = ({
   return (
     <>
     { /* If user has not created a profile yet */ }
-        <form className="profile-form" onSubmit={(e) => onSubmit(e)}>
+        <form className="profile-form-card" onSubmit={(e) => onSubmit(e)}>
+          <h1>Enter profile information</h1>
         <div className="profile-form-group">
           <TextField
             type="text"

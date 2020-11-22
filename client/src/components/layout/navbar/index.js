@@ -26,15 +26,15 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading }, profile: { profile
           <span>Create Log</span>
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/compare">
         <i class="fas fa-user-friends"/>{" "}
           <span>Compare Statistics</span>
         </Link>
-      </li>
+      </li> */}
       {!profile && 
       <li>
-        <Link to="/manage-profile">
+        <Link to="/create-profile">
         <i class="fas fa-user-friends"/>{" "}
           <span>Manage profile</span>
         </Link>

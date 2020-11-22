@@ -63,15 +63,28 @@ class HelperUpload extends Component {
         console.log("Response from s3")
         this.setState({success: true});
 
-            axios.post("http://localhost:5000/api/image/parse",{
-                imgUrl: bucketRoot + fileName
-              })
-              .then(response => {
-               console.log(response.data.text)
-              })      
-          .catch(error => {
-            console.log(error);
-          })
+          //   axios.post("http://localhost:5000/api/image/parse",{
+          //       imgUrl: bucketRoot + fileName
+          //     })
+          //     .then(response => {
+          //      console.log(response.data.text)
+          //     })      
+          // .catch(error => {
+          //   console.log(error);
+          // })
+         
+          axios.post("https://hek-wetern-sehwen.herokuapp.com/image",{
+            imgUrl: url
+          },
+          )
+          .then(response => {
+            console.log(url)
+           console.log(response.data)
+          })      
+      .catch(error => {
+        console.log(error);
+      })
+
       })
       .catch(error => {
         console.log(error);
