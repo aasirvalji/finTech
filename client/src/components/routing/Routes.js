@@ -13,6 +13,7 @@ import Camera from '../layout/camera'
 import ContinousSlider from '../layout/sliding-panel'
 import InputPage from '../layout/input-page'
 import ProfileForm from '../layout/profile/create/index'
+import EditProfile from '../layout/profile/update/index'
 
 const Routes = ({ query, date}) => {
   return (
@@ -35,7 +36,8 @@ const Routes = ({ query, date}) => {
 
         <PrivateRoute exact path='/dashboard' component={Entries}/>
         <PrivateRoute exact path='/camera' component={Camera}/>
-        <PrivateRoute exact path='/manage-profile' component={ProfileForm}/>
+        <PrivateRoute exact path='/create-profile' component={ProfileForm}/>
+        <PrivateRoute exact path='/update-profile' component={EditProfile}/>
       </Switch>
     </section>
   );

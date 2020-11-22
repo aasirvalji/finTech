@@ -11,7 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import styles from './index.module.css';
 
-const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
+const Navbar = ({ logout, auth: { isAuthenticated, loading }, profile: { profile } }) => {
   const authLinks = (
     <ul id={styles.navOptions}>
           <li>
@@ -33,9 +33,9 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
         </Link>
       </li>
       <li>
-        <Link to="/manage-profile">
+        <Link to="/create-profile">
         <i class="fas fa-user-friends"/>{" "}
-          <span>Manage Profile</span>
+          <span>Create Profile</span>
         </Link>
       </li>
       <li>
@@ -85,10 +85,12 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

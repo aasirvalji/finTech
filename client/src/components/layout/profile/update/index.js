@@ -1,112 +1,79 @@
-import React, { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfile, createProfile } from "../../../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../../../actions/profile";
 
-//materialUI imports
-import './index.module.css'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper'
-
-const ProfileForm = ({
-  getCurrentProfile,
-  createProfile,
-  history,
-  profile: { profile, loading },
-  auth,
-  match,
+const EditProfile = ({
+  profile: { profile, loading }, //destructure profile substate
+  createProfile, //createProfile action is used to create profile as well as edit profile
+  getCurrentProfile, //action to get users current profile to prefill fields
+  history, //router history stack
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
-
   const [formData, setFormData] = useState({
-    age: "0",
+    age: "",
     gender: "",
     student: "",
-    salary: "0",
-    address: ""
+    salary: "",
+    address: "",
   });
 
-  const { age, gender, student, salary, address } = formData;
+  useEffect(() => {
+    getCurrentProfile(); //gets current data for pre filled fields
+
+    setFormData({
+      age: loading || !profile.age ? "" : profile.age,
+      gender: loading || !profile.gender ? "" : profile.gender,
+      student: loading || !profile.student ? "" : profile.student,
+      salary: loading || !profile.salary ? "" : profile.salary,
+      address: loading || !profile.address ? "" : profile.address.join(",")
+    });
+  }, [loading, getCurrentProfile]);
+
+  const {
+    age,
+    gender,
+    student,
+    salary,
+    address,
+  } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
-
   return (
-    <>
-    { /* If user has not created a profile yet */ }
-        <form className="profile-form" onSubmit={(e) => onSubmit(e)}>
-        <div className="profile-form-group">
-          <TextField
+    <Fragment>
+            <div className="form-group">
+          <input
             type="text"
-            placeholder="Enter age"
+            placeholder="Age"
             name="age"
             value={age}
             onChange={(e) => onChange(e)}
-            required
           />
+          <small className="form-text">
+            City & state suggested (eg. Boston, MA)
+          </small>
         </div>
-        <div className="profile-form-group">
-          <TextField
-            type="text"
-            placeholder="Enter gender"
-            name="gender"
-            value={gender}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="profile-form-group">
-          <TextField
-            type='text'
-            placeholder="Student ?"
-            name="student"
-            value={student}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="profile-form-group">
-          <TextField
-            type='text'
-            placeholder="Enter salary"
-            name="salary"
-            value={salary}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="profile-form-group">
-          <TextField
-            type='text'
-            placeholder="Enter Address"
-            name="address"
-            value={address}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <Button type="submit" className="btn btn-primary" value="Create Profile" id='profile-form-button'>Enter</Button>
-      </form>
-    </>
+    </Fragment>
   );
 };
 
-ProfileForm.propTypes = {
-  profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  auth: state.auth, //if user viewing profile has the same id as the profile being viewed, they should be able to edit
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, createProfile })(withRouter(ProfileForm));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);
